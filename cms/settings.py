@@ -32,6 +32,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'web',
+    'mould',
+    'client',
+    'common',
     'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -111,3 +114,5 @@ STATICFILES_DIRS = (
 #STATIC_ROOT = 'staticfiles'
 
 LOGIN_URL = '/login'
+
+#from cms.custom_settings import *
