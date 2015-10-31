@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from rest_framework import routers
-from mould.api import JobWorkViewSet
+from mould.api import JobWorkViewSet, PartViewSet, MouldViewSet, MouldTypeViewSet, MouldDetailViewSet
 from client.api import ClientViewSet
 
 from web import views as web_views
@@ -26,6 +26,10 @@ from web import views as web_views
 router = routers.DefaultRouter()
 router.register(r'job-work', JobWorkViewSet)
 router.register(r'client', ClientViewSet)
+router.register(r'mould', MouldViewSet)
+router.register(r'mould-type', MouldTypeViewSet)
+router.register(r'mould-detail', MouldDetailViewSet)
+router.register(r'part', PartViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),

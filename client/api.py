@@ -9,7 +9,6 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
-
 # ViewSets define the view behavior.
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
