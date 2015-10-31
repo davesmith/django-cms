@@ -1,0 +1,13 @@
+{% extends "admin/base_site.html" %}
+{% load url from future %}{% load i18n %}
+
+{% block breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+
+<p class="text-center">{% trans "Logged out successfully." %}</p>
+
+<p class="text-center"><a href="/" class="btn btn-default">{% trans 'Log in again' %}</a></p>
+
+{% endblock %}
