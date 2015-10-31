@@ -16,9 +16,16 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from mould.api import router
+from rest_framework import routers
+from mould.api import JobWorkViewSet
+from client.api import ClientViewSet
 
 from web import views as web_views
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'job-work', JobWorkViewSet)
+router.register(r'client', ClientViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),

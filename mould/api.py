@@ -14,7 +14,3 @@ class JobWorkViewSet(viewsets.ModelViewSet):
     queryset = JobWork.objects.all()
     serializer_class = JobWorkSerializer
 
-
-# Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter()
-router.register(r'job-work', JobWorkViewSet)
