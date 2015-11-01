@@ -1,12 +1,24 @@
 # Serializers define the API representation.
 from rest_framework import serializers, viewsets, routers
+from client.api import ClientSerializer
 from mould.models import JobWork, Mould, MouldDetail, MouldType, Part
 
 
 class JobWorkSerializer(serializers.ModelSerializer):
+
+    def to_representation(self, instance):
+        return_obj = super(JobWorkSerializer, self).to_representation(instance)
+        return_obj.update({'client': instance.client.name if instance.client else None,
+                           'mould': instance.mould.name if instance.mould else None,
+                           'mould_detail': instance.mould_detail.detail if instance.mould_detail else None,
+                           'mould_type': instance.mould_type.detail if instance.mould_type else None,
+                           'part': instance.part.name if instance.part else None})
+        return return_obj
+
     class Meta:
         model = JobWork
         fields = ('id', 'job_date', 'client', 'mould', 'mould_detail', 'cavity', 'mould_type', 'part', 'drawing_no', 'challan_no', 'bill_no', 'dispatch_date')
+
 
 
 class MouldSerializer(serializers.ModelSerializer):
@@ -35,7 +47,7 @@ class PartSerializer(serializers.ModelSerializer):
         
 # ViewSets define the view behavior.
 class JobWorkViewSet(viewsets.ModelViewSet):
-    queryset = JobWork.objects.all()
+    queryset = JobWork.objects.all().select_related('client').select_related('part').select_related('mould_detail').select_related('mould_type')
     serializer_class = JobWorkSerializer
 
 
