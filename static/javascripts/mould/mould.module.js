@@ -4,7 +4,8 @@
   angular
     .module('projectx.mould', [
       'projectx.mould.controllers',
-      'projectx.mould.services'
+      'projectx.mould.services',
+      'projectx.mould.directives',
     ]);
 
   angular
@@ -12,4 +13,7 @@
 
   angular
     .module('projectx.mould.services', []);
+
+  angular
+    .module('projectx.mould.directives', []);
 })();
