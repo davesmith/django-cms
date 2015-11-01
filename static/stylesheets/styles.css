@@ -30,3 +30,15 @@
 .account .account__username {
   font-weight: bold;
 }
+
+.pull-right{
+  float: right;
+}
+
+.st-sort-ascent:before{
+    content: '\25B2';
+}
+
+.st-sort-descent:before{
+    content: '\25BC';
+}
