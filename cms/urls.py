@@ -33,9 +33,9 @@ router.register(r'part', PartViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^login/$', auth_views.login, {'extra_context': {'next': '/'}}),
-    url(r'^logout/$', auth_views.logout),
+    url(r'^login', auth_views.login, {'extra_context': {'next': '/'}}),
+    url(r'^logout', auth_views.logout),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/v1/', include(router.urls)),
-    url(r'^$',web_views.index)
+    url(r'^',web_views.index)
 ]
