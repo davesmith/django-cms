@@ -1,5 +1,7 @@
 # Serializers define the API representation.
-from rest_framework import serializers, viewsets, routers
+from django.db import models
+import django_filters
+from rest_framework import serializers, viewsets, routers, filters
 from client.api import ClientSerializer
 from client.models import Client
 from mould.models import JobWork, Mould, MouldDetail, MouldType, Part
@@ -57,15 +59,29 @@ class JobWorkSerializer(serializers.ModelSerializer):
         fields = ('id', 'job_date', 'client', 'mould', 'mould_detail', 'cavity', 'mould_type', 'part', 'drawing_no', 'challan_no', 'bill_no', 'dispatch_date')
 
 
+class JobWorkFilter(django_filters.FilterSet):
+    filter_overrides = {
+        models.CharField: {
+            'filter_class': django_filters.CharFilter,
+            'extra': lambda f: {
+                'lookup_type': 'icontains',
+            }
+        }
+    }
+
+    class Meta:
+        model = JobWork
+        fields = ('client__name', 'mould__name', 'mould_detail__detail', 'mould_type__detail', 'cavity', 'part__name'
+                     ,'drawing_no', 'challan_no', 'bill_no', 'dispatch_date')
 
 
-        
-        
 # ViewSets define the view behavior.
 class JobWorkViewSet(viewsets.ModelViewSet):
     queryset = JobWork.objects.all().select_related('client').select_related('part').select_related('mould_detail')\
         .select_related('mould_type').select_related('part')
     serializer_class = JobWorkSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = JobWorkFilter
 
 
 class MouldViewSet(viewsets.ModelViewSet):
