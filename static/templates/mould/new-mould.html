@@ -1,0 +1,97 @@
+<div layout="column" ng-cloak>
+
+<h3>New Mould - Add Details</h3>
+ <md-content layout-padding>
+ 	<form name="mouldForm">
+ 	   <md-datepicker ng-model="newRow.job_date" md-placeholder="Job date"></md-datepicker>
+
+   	 <md-input-container>
+        <label>Party Name</label>
+        <md-select ng-model="newRow.client">
+          <md-option ng-repeat="client in clients" value="{{client.id}}">
+            {{client.name}}
+          </md-option>
+        </md-select>
+      </md-input-container>  
+
+      <md-input-container flex>
+          <label>Party Mould No.</label>
+          <input ng-model="newRow.mould">
+      </md-input-container>
+
+      <md-input-container flex>
+          <label>Mould Detail</label>
+          <input ng-model="newRow.mould_detail">
+      </md-input-container>
+
+      <md-input-container flex>
+          <label>Cavity</label>
+          <input name="cavity" ng-model="newRow.cavity" placeholder="12345"
+                 required ng-pattern="/^[0-9]{5}$/" md-maxlength="2">
+         <!--  <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+            <div ng-message="required" class="my-message">You must supply a postal code.</div>
+            <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
+              code.
+            </div>
+            <div ng-message="md-maxlength" class="my-message">
+              Don't use the long version silly...we don't need to be that specific...
+            </div>
+          </div> -->
+      </md-input-container>
+
+      <md-input-container>
+        <label>Mould Type</label>
+        <md-select ng-model="newRow.mould_type">
+          <md-option ng-repeat="mould in mouldTypes" value="{{mould.id}}">
+            {{mould.detail}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+      <md-input-container flex>
+          <label>Part Name</label>
+          <input ng-model="newRow.part">
+      </md-input-container>
+
+      <md-input-container flex>
+          <label>Drawing No.</label>
+          <input ng-model="newRow.drawing_no">
+      </md-input-container>
+  
+      <md-input-container flex>
+          <label>Challan No.</label>
+          <input name="challanNo" ng-model="newRow.challan_no" placeholder="12345"
+                 required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+         <!--  <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+            <div ng-message="required" class="my-message">You must supply a postal code.</div>
+            <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
+              code.
+            </div>
+            <div ng-message="md-maxlength" class="my-message">
+              Don't use the long version silly...we don't need to be that specific...
+            </div>
+          </div> -->
+      </md-input-container>
+
+      <md-input-container flex>
+          <label>Bill No.</label>
+          <input name="billNo" ng-model="newRow.bill_no" placeholder="12345"
+                 required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+         <!--  <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+            <div ng-message="required" class="my-message">You must supply a postal code.</div>
+            <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
+              code.
+            </div>
+            <div ng-message="md-maxlength" class="my-message">
+              Don't use the long version silly...we don't need to be that specific...
+            </div>
+          </div> -->
+      </md-input-container>
+
+      <md-datepicker ng-model="newRow.dispatch_date" md-placeholder="Dispatch date"></md-datepicker>
+      <div>
+        <md-button class="md-raised md-primary" ng-click="onAddItemDone()">Save</md-button>
+      </div>
+    </form>
+  </md-content>
+</div>
