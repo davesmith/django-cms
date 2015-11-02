@@ -7,7 +7,8 @@
       'projectx.routes',
       'projectx.mould',
       'projectx.layout',
-      'smart-table'
+      'smart-table',
+      'ui.bootstrap'
     ]);
 
     angular

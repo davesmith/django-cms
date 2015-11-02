@@ -35,7 +35,7 @@
 	<tr ng-repeat="row in displayedCollection">
 		<td>{{row.id}}</td>
 		<td>{{row.job_date | date}}</td>
-		<td>{{row.client}}</td>
+		<td><div contentEditable="true" ng-model="row.client">{{row.client}}</div></td>
 		<td>{{row.mould}}</td>
 		<td>{{row.mould_detail}}</td>
 		<td>{{row.cavity}}</td>
@@ -48,6 +48,33 @@
 		<td>
 			<button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
 				<i class="glyphicon glyphicon-remove-circle">
+				</i>
+			</button>
+		</td>
+	</tr>
+	<tr ng-show="isAddingRow">
+		<td>{{newRow.id}}</td>
+		<td><input placeholder="job date" class="input-sm form-control" ng-model="newRow.job_date" type="input"/></td>
+		<!--<td>
+			  <input type="text" class="input-sm form-control" uib-datepicker-popup="{{format}}"  ng-model="newRow.job_date" is-open="status.opened" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+
+		</td>-->
+		<td><input placeholder="Client" class="input-sm form-control" ng-model="newRow.client" type="input"/></td>
+		<td><input placeholder="Mould" class="input-sm form-control" ng-model="newRow.mould" type="input"/></td>
+		<td><input placeholder="Mould detail" class="input-sm form-control" ng-model="newRow.mould_detail" type="input"/></td>
+		<td><input placeholder="Cavity" class="input-sm form-control" ng-model="newRow.cavity" type="input"/></td>
+		<td><input placeholder="Mould type" class="input-sm form-control" ng-model="newRow.mould_type" type="input"/></td>
+		<td><input placeholder="Part" class="input-sm form-control" ng-model="newRow.part" type="input"/></td>
+		<td><input placeholder="Drawing no" class="input-sm form-control" ng-model="newRow.drawing_no" type="input"/></td>
+		<td><input placeholder="Challan no" class="input-sm form-control" ng-model="newRow.challan_no" type="input"/></td>
+		<td><input placeholder="Bill no" class="input-sm form-control" ng-model="newRow.bill_no" type="input"/></td>
+		<td><input placeholder="Dispatch date" class="input-sm form-control" ng-model="newRow.dispatch_date" type="input"/></td>
+		<td>
+			<button type="button" ng-click="onAddItemDone()" class="btn btn-sm btn-success">
+				<i class="glyphicon glyphicon-plus">
 				</i>
 			</button>
 		</td>

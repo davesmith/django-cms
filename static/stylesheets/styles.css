@@ -42,3 +42,15 @@
 .st-sort-descent:before{
     content: '\25BC';
 }
+
+div[contentEditable] {
+  cursor: pointer;
+  background-color: white;
+    padding: .2em;
+}
+div[contentEditable]:focus {
+  cursor: pointer;
+  background-color: #D0D0D0;
+    border: 1px solid red;
+  padding: .2em;
+}

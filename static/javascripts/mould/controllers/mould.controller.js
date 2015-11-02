@@ -15,6 +15,20 @@
    * @namespace RegisterController
    */
   function MouldController($location, $scope, Mould) {
+    $scope.newRow = {
+      bill_no: "",
+      cavity: null,
+      challan_no: "",
+      client: "",
+      dispatch_date: "2015-10-31",
+      drawing_no: "",
+      job_date: "2015-10-31",
+      mould: "",
+      mould_detail: null,
+      mould_type: null,
+      part: null
+    };
+
     activate();
 
     function activate(){
@@ -26,12 +40,22 @@
       });
     }
 
-
     //add to the real data holder
     $scope.addItem = function addItem() {
-        $scope.rowCollection.push({});
+        $scope.isAddingRow = true;
+        $scope.newRow.id = $scope.displayedCollection.length + 1;
+        //$scope.rowCollection.push({});
         // call the db to update the mould list
     };
+
+    //add to the real data holder
+    $scope.onAddItemDone = function onAddItemDone() {
+        $scope.isAddingRow = false;
+        $scope.rowCollection.push($scope.newRow);
+         $scope.newRow = {};
+        // call the db to update the mould list
+    };
+    
 
      //add to the real data holder
     $scope.updateItem = function updateItem(row) {
@@ -51,5 +75,18 @@
 
         // call db to remove item from mould list
     }
+
+    //---------date picker classes---------//
+
+    $scope.open = function($event) {
+      $scope.status.opened = true;
+    };
+
+    $scope.status = {
+      opened: false
+    };
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
   }
 })();
