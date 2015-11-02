@@ -54,7 +54,7 @@
 	</tr>
 	<tr ng-show="isAddingRow">
 		<td>{{newRow.id}}</td>
-		<td><input placeholder="job date" class="input-sm form-control" ng-model="newRow.job_date" type="input"/></td>
+		<td><md-datepicker ng-model="newRow.job_date" md-placeholder="Enter date"></md-datepicker></td>
 		<!--<td>
 			  <input type="text" class="input-sm form-control" uib-datepicker-popup="{{format}}"  ng-model="newRow.job_date" is-open="status.opened" close-text="Close" />
               <span class="input-group-btn">
@@ -62,7 +62,15 @@
               </span>
 
 		</td>-->
-		<td><input placeholder="Client" class="input-sm form-control" ng-model="newRow.client" type="input"/></td>
+		<td>
+		 <md-input-container>
+        	<md-select ng-model="newRow.client">
+          	<md-option ng-repeat="client in clients" value="{{client.id}}">
+            	{{client.name}}
+          	</md-option>
+        	</md-select>
+      	</md-input-container>
+      </td>
 		<td><input placeholder="Mould" class="input-sm form-control" ng-model="newRow.mould" type="input"/></td>
 		<td><input placeholder="Mould detail" class="input-sm form-control" ng-model="newRow.mould_detail" type="input"/></td>
 		<td><input placeholder="Cavity" class="input-sm form-control" ng-model="newRow.cavity" type="input"/></td>
@@ -71,7 +79,7 @@
 		<td><input placeholder="Drawing no" class="input-sm form-control" ng-model="newRow.drawing_no" type="input"/></td>
 		<td><input placeholder="Challan no" class="input-sm form-control" ng-model="newRow.challan_no" type="input"/></td>
 		<td><input placeholder="Bill no" class="input-sm form-control" ng-model="newRow.bill_no" type="input"/></td>
-		<td><input placeholder="Dispatch date" class="input-sm form-control" ng-model="newRow.dispatch_date" type="input"/></td>
+		<td><md-datepicker ng-model="newRow.dispatch_date" md-placeholder="Enter date"></md-datepicker></td>
 		<td>
 			<button type="button" ng-click="onAddItemDone()" class="btn btn-sm btn-success">
 				<i class="glyphicon glyphicon-plus">

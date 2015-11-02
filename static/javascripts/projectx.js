@@ -8,14 +8,16 @@
       'projectx.mould',
       'projectx.layout',
       'smart-table',
-      'ui.bootstrap'
+      'ui.bootstrap',
+      'ngMaterial',
+      'ui.router',
     ]);
 
-    angular
+  angular
   .module('projectx.config', []);
 
   angular
-    .module('projectx.routes', ['ngRoute']);
+    .module('projectx.routes', ['ngRoute', 'ui.router']);
 
   angular
     .module('projectx')

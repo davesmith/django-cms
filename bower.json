@@ -19,6 +19,11 @@
     "jquery": "~2.1.1",
     "ngDialog": "~0.3.3",
     "underscore": "~1.7.0",
-    "angular-smart-table": "~2.1.4"
+    "angular-smart-table": "~2.1.4",
+    "angular-ui-router": "~0.2.15",
+    "angular-material": "~0.11.4"
+  },
+  "resolutions": {
+    "angular": "^1.0.0"
   }
 }

@@ -5,21 +5,28 @@
     .module('projectx.routes')
     .config(config);
 
-  config.$inject = ['$routeProvider'];
+  config.$inject = ['$stateProvider'];
 
   /**
    * @name config
    * @desc Define valid application routes
    */
-  function config($routeProvider) {
-    $routeProvider.when('/', {
-      controller: 'MouldController', 
-      controllerAs: 'vm',
-      templateUrl: '/static/templates/layout/index.html'
-    }).when('/mould', {
-      controller: 'MouldController', 
-      controllerAs: 'vm',
-      templateUrl: '/static/templates/mould/mould.html'
-    }).otherwise('/');
+  function config($stateProvider) {
+     $stateProvider
+      .state('mould', {
+        url: '/',
+        controller: 'MouldController',
+        templateUrl: "/static/templates/mould/moulds.html"
+      })
+      .state('newMould', {
+        url: '/mould/new',
+        controller: 'NewMouldController', 
+        templateUrl: '/static/templates/mould/new-mould.html'
+      })
+      .state('editMould', {
+        url: '/mould/edit/{mouldId}',
+        controller: 'NewMouldController', 
+        templateUrl: '/static/templates/mould/new-mould.html'
+      });
   }
 })();
