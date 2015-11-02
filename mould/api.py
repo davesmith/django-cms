@@ -1,24 +1,8 @@
 # Serializers define the API representation.
 from rest_framework import serializers, viewsets, routers
 from client.api import ClientSerializer
+from client.models import Client
 from mould.models import JobWork, Mould, MouldDetail, MouldType, Part
-
-
-class JobWorkSerializer(serializers.ModelSerializer):
-
-    def to_representation(self, instance):
-        return_obj = super(JobWorkSerializer, self).to_representation(instance)
-        return_obj.update({'client': instance.client.name if instance.client else None,
-                           'mould': instance.mould.name if instance.mould else None,
-                           'mould_detail': instance.mould_detail.detail if instance.mould_detail else None,
-                           'mould_type': instance.mould_type.detail if instance.mould_type else None,
-                           'part': instance.part.name if instance.part else None})
-        return return_obj
-
-    class Meta:
-        model = JobWork
-        fields = ('id', 'job_date', 'client', 'mould', 'mould_detail', 'cavity', 'mould_type', 'part', 'drawing_no', 'challan_no', 'bill_no', 'dispatch_date')
-
 
 
 class MouldSerializer(serializers.ModelSerializer):
@@ -37,17 +21,50 @@ class MouldTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = MouldType
         fields = ('id', 'detail')
-        
-        
+
+
 class PartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Part
         fields = ('id', 'name')
+
+
+class JobWorkSerializer(serializers.ModelSerializer):
+
+    client = ClientSerializer(allow_null=True)
+    mould = MouldSerializer(allow_null=True)
+    mould_detail = MouldDetailSerializer(allow_null=True)
+    mould_type = MouldTypeSerializer(allow_null=True)
+    part = PartSerializer(allow_null=True)
+
+    def validate_client(self, value):
+        return (Client.objects.get_or_create(name=value.get("name")))[0] if value else value
+
+    def validate_mould(self, value):
+        return (Mould.objects.get_or_create(name=value.get("name")))[0] if value else value
+
+    def validate_mould_detail(self, value):
+        return (MouldDetail.objects.get_or_create(detail= value.get("detail")))[0] if value else value
+
+    def validate_mould_type(self, value):
+        return (MouldType.objects.get_or_create(detail=value.get("detail")))[0] if value else value
+
+    def validate_part(self, value):
+        return (Part.objects.get_or_create(name=value.get("name")))[0] if value else value
+    
+    class Meta:
+        model = JobWork
+        fields = ('id', 'job_date', 'client', 'mould', 'mould_detail', 'cavity', 'mould_type', 'part', 'drawing_no', 'challan_no', 'bill_no', 'dispatch_date')
+
+
+
+
         
         
 # ViewSets define the view behavior.
 class JobWorkViewSet(viewsets.ModelViewSet):
-    queryset = JobWork.objects.all().select_related('client').select_related('part').select_related('mould_detail').select_related('mould_type')
+    queryset = JobWork.objects.all().select_related('client').select_related('part').select_related('mould_detail')\
+        .select_related('mould_type').select_related('part')
     serializer_class = JobWorkSerializer
 
 

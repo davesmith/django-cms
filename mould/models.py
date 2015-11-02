@@ -50,5 +50,8 @@ class JobWork(BaseModel):
     def __str__(self):
         return 'PE-'+str(100+self.id)
 
+    def save(self, *args, **kwargs):
 
+
+        super(JobWork, self).save(*args, **kwargs)
 
