@@ -1,105 +1,114 @@
-   <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>
-          <span>New-Rework Mould Records</span>
-        </h2>
-        <span flex></span>
-        <button type="button" ng-click="addItem()" class="btn btn-sm btn-success pull-right">
+<div class="main-border">
+	<md-toolbar class="md-hue-2">
+	  <div class="md-toolbar-tools">
+	    <h2>
+	      <span>New-Rework Mould Records</span>
+	    </h2>
+	    <span flex></span>
+	   <!--  <md-button ng-click="addItem()" class="md-raised md-primary">	<i class="glyphicon glyphicon-plus">
+			</i> Add New item
+			</md-button> -->
+	    <button type="button" ng-click="addItem()" class="btn btn-sm btn-success pull-right">
 			<i class="glyphicon glyphicon-plus">
 			</i> Add New item
 		</button>
-      </div>
-    </md-toolbar>
-<br />
-<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
-	<thead>
-	<tr>
-		<th st-sort="id">Sr. No</th>
-		<th>Date</th>
-		<th>Party Name</th>
-		<th>Party Mould No.</th>
-		<th>Mould Detail</th>
-		<th st-sort="cavity">Cavity</th>
-		<th>Mould Type</th>
-		<th>Part Name</th>
-		<th>Dwg No.</th>
-		<th>Challan No</th>
-		<th>Bill No</th>
-		<th>Dispatch Date</th>
-	</tr>
-	<tr>
-		<th></th>
-		<th></th>
-		<th>
-			<input st-search="client.name" placeholder="search client" class="input-sm form-control" type="search"/>
-		</th>
-		<th>
-			<input st-search="mould.name" placeholder="search mould" class="input-sm form-control" type="search"/>
-		</th>
-		<th></th>
-		<th></th>
-		<th></th>
-		<th>
-			<input st-search="part.name" placeholder="search by part name" class="input-sm form-control" type="search"/>
-		</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr ng-repeat="row in displayedCollection">
-		<td>{{row.id}}</td>
-		<td>{{row.job_date | date}}</td>
-		<td><div contentEditable="true" ng-model="row.client.name">{{row.client.name}}</div></td>
-		<td>{{row.mould.name}}</td>
-		<td>{{row.mould_detail.detail}}</td>
-		<td>{{row.cavity}}</td>
-		<td>{{row.mould_type.detail}}</td>
-		<td>{{row.part.name}}</td>
-		<td>{{row.drawing_no}}</td>
-		<td>{{row.challan_no}}</td>
-		<td>{{row.bill_no}}</td>
-		<td>{{row.dispatch_date | date}}</td>
-		<td>
-			<button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
-				<i class="glyphicon glyphicon-remove-circle">
-				</i>
-			</button>
-		</td>
-	</tr>
-	<tr ng-show="isAddingRow">
-		<td>{{newRow.id}}</td>
-		<td><md-datepicker ng-model="newRow.job_date" md-placeholder="Enter date"></md-datepicker></td>
-		<!--<td>
-			  <input type="text" class="input-sm form-control" uib-datepicker-popup="{{format}}"  ng-model="newRow.job_date" is-open="status.opened" close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
+	  </div>
+	</md-toolbar>
+	<br />
+	<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+		<thead>
+		<tr>
+			<th st-sort="id">Sr. No</th>
+			<th>Date</th>
+			<th>Party Name</th>
+			<th>Mould No.</th>
+			<th>Mould Detail</th>
+			<th st-sort="cavity">Cavity</th>
+			<th>Mould Type</th>
+			<th>Part Name</th>
+			<th>Dwg No.</th>
+			<th>Challan No</th>
+			<th>Bill No</th>
+			<th>Dispatch Date</th>
+			<th>Actions</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>
+				<input st-search="client.name" placeholder="search client" class="input-sm form-control" type="search"/>
+			</th>
+			<th>
+				<input st-search="mould.name" placeholder="search mould" class="input-sm form-control" type="search"/>
+			</th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th>
+				<input st-search="part.name" placeholder="search by part name" class="input-sm form-control" type="search"/>
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="row in displayedCollection">
+			<td>{{row.id}}</td>
+			<td>{{row.job_date | date}}</td>
+			<td><div contentEditable="true" ng-model="row.client.name">{{row.client.name}}</div></td>
+			<td>{{row.mould.name}}</td>
+			<td>{{row.mould_detail.detail}}</td>
+			<td>{{row.cavity}}</td>
+			<td>{{row.mould_type.detail}}</td>
+			<td>{{row.part.name}}</td>
+			<td>{{row.drawing_no}}</td>
+			<td>{{row.challan_no}}</td>
+			<td>{{row.bill_no}}</td>
+			<td>{{row.dispatch_date | date}}</td>
+			<td>
+				<button type="button" ng-click="updateItem(row)" class="btn btn-sm btn-info">
+					<i class="glyphicon glyphicon-pencil">
+					</i>
+				</button>
+				<button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
+					<i class="glyphicon glyphicon-remove-circle">
+					</i>
+				</button>
+			</td>
+		</tr>
+		<tr ng-show="isAddingRow">
+			<td>{{newRow.id}}</td>
+			<td><md-datepicker ng-model="newRow.job_date" md-placeholder="Enter date"></md-datepicker></td>
+			<!--<td>
+				  <input type="text" class="input-sm form-control" uib-datepicker-popup="{{format}}"  ng-model="newRow.job_date" is-open="status.opened" close-text="Close" />
+	              <span class="input-group-btn">
+	                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+	              </span>
 
-		</td>-->
-		<td>
-		 <md-input-container>
-        	<md-select ng-model="newRow.client">
-          	<md-option ng-repeat="client in clients" value="{{client.id}}">
-            	{{client.name}}
-          	</md-option>
-        	</md-select>
-      	</md-input-container>
-      </td>
-		<td><input placeholder="Mould" class="input-sm form-control" ng-model="newRow.mould" type="input"/></td>
-		<td><input placeholder="Mould detail" class="input-sm form-control" ng-model="newRow.mould_detail" type="input"/></td>
-		<td><input placeholder="Cavity" class="input-sm form-control" ng-model="newRow.cavity" type="input"/></td>
-		<td><input placeholder="Mould type" class="input-sm form-control" ng-model="newRow.mould_type" type="input"/></td>
-		<td><input placeholder="Part" class="input-sm form-control" ng-model="newRow.part" type="input"/></td>
-		<td><input placeholder="Drawing no" class="input-sm form-control" ng-model="newRow.drawing_no" type="input"/></td>
-		<td><input placeholder="Challan no" class="input-sm form-control" ng-model="newRow.challan_no" type="input"/></td>
-		<td><input placeholder="Bill no" class="input-sm form-control" ng-model="newRow.bill_no" type="input"/></td>
-		<td><md-datepicker ng-model="newRow.dispatch_date" md-placeholder="Enter date"></md-datepicker></td>
-		<td>
-			<button type="button" ng-click="onAddItemDone()" class="btn btn-sm btn-success">
-				<i class="glyphicon glyphicon-plus">
-				</i>
-			</button>
-		</td>
-	</tr>
-	</tbody>
-</table>
-
+			</td>-->
+			<td>
+			 <md-input-container>
+	        	<md-select ng-model="newRow.client">
+	          	<md-option ng-repeat="client in clients" value="{{client.id}}">
+	            	{{client.name}}
+	          	</md-option>
+	        	</md-select>
+	      	</md-input-container>
+	      </td>
+			<td><input placeholder="Mould" class="input-sm form-control" ng-model="newRow.mould" type="input"/></td>
+			<td><input placeholder="Mould detail" class="input-sm form-control" ng-model="newRow.mould_detail" type="input"/></td>
+			<td><input placeholder="Cavity" class="input-sm form-control" ng-model="newRow.cavity" type="input"/></td>
+			<td><input placeholder="Mould type" class="input-sm form-control" ng-model="newRow.mould_type" type="input"/></td>
+			<td><input placeholder="Part" class="input-sm form-control" ng-model="newRow.part" type="input"/></td>
+			<td><input placeholder="Drawing no" class="input-sm form-control" ng-model="newRow.drawing_no" type="input"/></td>
+			<td><input placeholder="Challan no" class="input-sm form-control" ng-model="newRow.challan_no" type="input"/></td>
+			<td><input placeholder="Bill no" class="input-sm form-control" ng-model="newRow.bill_no" type="input"/></td>
+			<td><md-datepicker ng-model="newRow.dispatch_date" md-placeholder="Enter date"></md-datepicker></td>
+			<td>
+				<button type="button" ng-click="onAddItemDone()" class="btn btn-sm btn-success">
+					<i class="glyphicon glyphicon-plus">
+					</i>
+				</button>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>

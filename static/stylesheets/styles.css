@@ -54,3 +54,7 @@ div[contentEditable]:focus {
     border: 1px solid red;
   padding: .2em;
 }
+
+.main-border{
+    outline: 1px solid rgb(82, 157, 184);
+}

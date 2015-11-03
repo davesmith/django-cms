@@ -46,7 +46,7 @@
     }
 
     function listMould(id) {
-      return $http.get('/api/v1/job-work/' + id + '?format=json');
+      return $http.get('/api/v1/job-work/' + id + '/?format=json');
     }
 
     function listClients() {
@@ -70,7 +70,7 @@
       });
     }
      function deleteMould(id) {
-      return $http.get('/api/v1/job-work/?format=json');
+      return $http.delete('/api/v1/job-work/' + id +'/?format=json');
     }
   }
 })();
