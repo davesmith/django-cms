@@ -26,7 +26,11 @@
       deleteMould: deleteMould,
       listClients: listClients,
       listMouldTypes: listMouldTypes,
-      create: create
+      listMouldNo: listMouldNo,
+      listMouldDetails: listMouldDetails,
+      listParts: listParts,
+      create: create,
+      updateMould: updateMould
     };
 
     return Mould;
@@ -57,17 +61,24 @@
       return $http.get('/api/v1/mould-type/?format=json');
     }
 
+    function listMouldNo() {
+      return $http.get('/api/v1/mould/?format=json');
+    }
 
-    function create(content) {
-      return $http.post('/api/v1/job-work/', {
-        content: content
-      });
+    function listMouldDetails() {
+      return $http.get('/api/v1/mould-detail/?format=json');
+    }
+
+    function listParts() {
+      return $http.get('/api/v1/part/?format=json');
+    }
+
+    function create(data) {
+      return $http.post('/api/v1/job-work/', data);
     }
 
     function updateMould(data) {
-      return $http.post('/api/v1/job-work/', {
-        content: content
-      });
+      return $http.post('/api/v1/job-work/' + data.id +'/?format=json', data);
     }
      function deleteMould(id) {
       return $http.delete('/api/v1/job-work/' + id +'/?format=json');

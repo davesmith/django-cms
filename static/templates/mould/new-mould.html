@@ -5,9 +5,28 @@
  	<form name="mouldForm">
  	   <md-datepicker ng-model="newRow.job_date" md-placeholder="Job date"></md-datepicker>
 
+    <md-autocomplete
+          md-selected-item="selectedClientItem"
+          md-search-text-change="clientSearchTextChange(clientSearchText)"
+          md-search-text="clientSearchText"
+          md-selected-item-change="selectedClientItemChange(item)"
+          md-items="item in clientQuerySearch(clientSearchText)"
+          md-item-text="item.name"
+          md-min-length="0"
+          placeholder="Select Client">
+        <md-item-template>
+          <span md-highlight-text="clientSearchText" md-highlight-flags="^i">{{item.name}}</span>
+        </md-item-template>
+        <md-not-found>
+          No states matching "{{clientSearchText}}" were found.
+          <a ng-click="addNewClient(clientSearchText)">Create a new one!</a>
+        </md-not-found>
+    </md-autocomplete>
+<br/><br/><br/>
    	 <md-input-container>
         <label>Party Name</label>
-        <md-select ng-model="newRow.client">
+      <!--   <md-icon md-svg-src="../../img/icons/ic_person_24px.svg" class="name"></md-icon> -->
+        <md-select ng-model="selectedClient">
           <md-option ng-repeat="client in clients" value="{{client.id}}">
             {{client.name}}
           </md-option>
@@ -27,7 +46,7 @@
       <md-input-container flex>
           <label>Cavity</label>
           <input name="cavity" ng-model="newRow.cavity" placeholder="12345"
-                 required ng-pattern="/^[0-9]{5}$/" md-maxlength="2">
+                 required  md-maxlength="2">
          <!--  <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
             <div ng-message="required" class="my-message">You must supply a postal code.</div>
             <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
@@ -61,7 +80,7 @@
       <md-input-container flex>
           <label>Challan No.</label>
           <input name="challanNo" ng-model="newRow.challan_no" placeholder="12345"
-                 required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+                 required md-maxlength="5">
          <!--  <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
             <div ng-message="required" class="my-message">You must supply a postal code.</div>
             <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
@@ -76,7 +95,7 @@
       <md-input-container flex>
           <label>Bill No.</label>
           <input name="billNo" ng-model="newRow.bill_no" placeholder="12345"
-                 required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+                 required md-maxlength="5">
          <!--  <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
             <div ng-message="required" class="my-message">You must supply a postal code.</div>
             <div ng-message="pattern" class="my-message">That doesn't look like a valid postal

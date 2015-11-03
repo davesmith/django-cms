@@ -34,6 +34,13 @@
     function getClients () {
          Mould.listClients().then(function (data) {
            $scope.clients = data.data;
+           $scope.clients = $scope.clients.map( function (client) {
+                return {
+                  name: client.name,
+                  value: client.name.toLowerCase(),
+                  id: client.id
+                };
+            });
         });
     }
 
@@ -50,25 +57,63 @@
       if($state.params.mouldId){
          Mould.listMould($state.params.mouldId).then(function (data) {
            $scope.newRow = data.data;
+
+           $scope.selectedClient = $scope.newRow.client.id;
         });
       }
     }
 
     //add to the real data holder
     $scope.onAddItemDone = function onAddItemDone() {
-         //Mould.create($scope.newRow).then(function (data) {
+      if(!$state.params.mouldId){
+         Mould.create($scope.newRow).then(function (data) {
            $state.go('mould');
            console.log($scope.newRow);
-        //});
+        });
+      }
+      else{
+        $scope.onUpdateDone();
+      }
        
         // call the db to update the mould list
     };
     
      //add to the real data holder
     $scope.onUpdateDone = function onUpdateDone() {
-        Mould.updateMould($scope.mould).then(function (data) {
-           $state.go('/');
+        Mould.updateMould($scope.newRow).then(function (data) {
+           $state.go('mould');
         });
     };
+
+    //Code for client auto-complete
+    $scope.selectedClientItem;
+    $scope.clientQuerySearch = clientQuerySearch;
+    $scope.clientSearchText;
+    $scope.selectedClientItemChange = selectedClientItemChange;
+    $scope.clientSearchTextChange   = clientSearchTextChange;
+    $scope.addNewClient = addNewClient;
+
+    function clientQuerySearch (query) {
+      var results = query ? $scope.clients.filter( createFilterFor(query) ) : $scope.clients;
+      return results;
+    }
+
+    function addNewClient () {
+      console.log("adding new client");
+    }
+
+   function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(client) {
+        return (client.value.indexOf(lowercaseQuery) === 0);
+      };
+    }
+
+    function clientSearchTextChange(text) {
+      console.log('Text changed to ' + text);
+    }
+    function selectedClientItemChange(item) {
+      console.log('Item changed to ' + JSON.stringify(item));
+    }
   }
 })();
