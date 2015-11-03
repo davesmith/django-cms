@@ -6,6 +6,7 @@
       'projectx.mould.controllers',
       'projectx.mould.services',
       'projectx.mould.directives',
+      'projectx.mould.filters',
     ]);
 
   angular
@@ -16,4 +17,7 @@
 
   angular
     .module('projectx.mould.directives', []);
+
+  angular
+    .module('projectx.mould.filters', []);
 })();

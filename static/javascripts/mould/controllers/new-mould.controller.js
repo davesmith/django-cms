@@ -15,6 +15,8 @@
    * @namespace RegisterController
    */
   function NewMouldController($state, $scope, Mould) {
+    $scope.selectedClient = null;
+
     $scope.newRow = {
       bill_no: "",
       cavity: null,
@@ -44,21 +46,32 @@
         });
     }
 
-    function getMouldTypes () {
-         Mould.listMouldTypes().then(function (data) {
+    function getSelectableFieldsData () {
+        Mould.listMouldTypes().then(function (data) {
            $scope.mouldTypes = data.data;
+        });
+
+        Mould.listMouldNo().then(function (data) {
+           $scope.mouldNos = data.data;
+        });
+
+        Mould.listMouldDetails().then(function (data) {
+           $scope.mouldDetails = data.data;
+        });
+
+        Mould.listParts().then(function (data) {
+           $scope.parts = data.data;
         });
     }
 
+
     function activate(){
       getClients();
-      getMouldTypes();
+      getSelectableFieldsData();
 
       if($state.params.mouldId){
          Mould.listMould($state.params.mouldId).then(function (data) {
            $scope.newRow = data.data;
-
-           $scope.selectedClient = $scope.newRow.client.id;
         });
       }
     }
@@ -66,7 +79,7 @@
     //add to the real data holder
     $scope.onAddItemDone = function onAddItemDone() {
       if(!$state.params.mouldId){
-         Mould.create($scope.newRow).then(function (data) {
+        Mould.create($scope.newRow).then(function (data) {
            $state.go('mould');
            console.log($scope.newRow);
         });
@@ -74,8 +87,6 @@
       else{
         $scope.onUpdateDone();
       }
-       
-        // call the db to update the mould list
     };
     
      //add to the real data holder

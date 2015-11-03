@@ -43,10 +43,24 @@
 			</th>
 			<th></th>
 			<th></th>
-			<th></th>
+			 <th>
+                <select st-search="mould_type.detail">
+                    <option value="">All</option>
+                    <option ng-repeat="row in rowCollection | unique:'mould_type.detail'" value="{{row.mould_type.detail}}">{{row.mould_type.detail}}</option>
+                </select>
+            </th>
 			<th>
+			 <!-- 	<md-input-container>
+	          		<input st-search="part.name" placeholder="search by part name">
+      			</md-input-container> -->
 				<input st-search="part.name" placeholder="search by part name" class="input-sm form-control" type="search"/>
 			</th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<!-- <th>
+				<st-date-range predicate="dispatch_date" before="query.before" after="query.after"></st-date-range>
+			</th> -->
 		</tr>
 		</thead>
 		<tbody>

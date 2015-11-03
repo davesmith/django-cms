@@ -35,21 +35,31 @@
    	 <md-input-container>
         <label>Party Name</label>
       <!--   <md-icon md-svg-src="../../img/icons/ic_person_24px.svg" class="name"></md-icon> -->
-        <md-select ng-model="selectedClient">
-          <md-option ng-repeat="client in clients" value="{{client.id}}">
+        <md-select ng-model="newRow.client">
+          <md-option ng-repeat="client in clients" value="{{client}}">
             {{client.name}}
           </md-option>
         </md-select>
       </md-input-container>  
-
-      <md-input-container flex>
-          <label>Party Mould No.</label>
-          <input ng-model="newRow.mould">
+    
+       <md-input-container flex>
+           <label>Party Mould No.</label>
+          <!--   <md-icon md-svg-src="../../img/icons/ic_person_24px.svg" class="name"></md-icon> -->
+        <md-select ng-model="newRow.mould">
+          <md-option ng-repeat="no in mouldNos" value="{{no}}">
+            {{no.name}}
+          </md-option>
+        </md-select>
       </md-input-container>
 
       <md-input-container flex>
-          <label>Mould Detail</label>
-          <input ng-model="newRow.mould_detail">
+           <label>Mould Detail</label>
+          <!--   <md-icon md-svg-src="../../img/icons/ic_person_24px.svg" class="name"></md-icon> -->
+        <md-select ng-model="newRow.mould_detail">
+          <md-option ng-repeat="detail in mouldDetails" value="{{detail}}">
+            {{detail.detail}}
+          </md-option>
+        </md-select>
       </md-input-container>
 
       <md-input-container flex>
@@ -70,15 +80,19 @@
       <md-input-container>
         <label>Mould Type</label>
         <md-select ng-model="newRow.mould_type">
-          <md-option ng-repeat="mould in mouldTypes" value="{{mould.id}}">
+          <md-option ng-repeat="mould in mouldTypes" value="{{mould}}">
             {{mould.detail}}
           </md-option>
         </md-select>
       </md-input-container>
 
-      <md-input-container flex>
-          <label>Part Name</label>
-          <input ng-model="newRow.part">
+     <md-input-container>
+        <label>Part Name</label>
+        <md-select ng-model="newRow.part">
+          <md-option ng-repeat="name in parts" value="{{name}}">
+            {{name.name}}
+          </md-option>
+        </md-select>
       </md-input-container>
 
       <md-input-container flex>
