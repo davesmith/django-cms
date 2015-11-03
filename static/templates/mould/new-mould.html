@@ -1,10 +1,20 @@
+<div class="doc-content main-border">
 <div layout="column" ng-cloak>
-
-<h3>New Mould - Add Details</h3>
+  <md-toolbar class="md-hue-2">
+    <div class="md-toolbar-tools">
+      <h2>
+        <span>New-Rework - Add Details</span>
+      </h2>
+      <span flex></span>
+     <!--  <md-button ng-click="addItem()" class="md-raised md-primary">  <i class="glyphicon glyphicon-plus">
+      </i> Add New item
+      </md-button> -->
+    </div>
+  </md-toolbar>
  <md-content layout-padding>
  	<form name="mouldForm">
- 	   <md-datepicker ng-model="newRow.job_date" md-placeholder="Job date"></md-datepicker>
-
+     <md-datepicker ng-model="newRow.job_date" md-placeholder="Job date"></md-datepicker>
+     <br/><br/>
     <md-autocomplete
           md-selected-item="selectedClientItem"
           md-search-text-change="clientSearchTextChange(clientSearchText)"
@@ -22,7 +32,6 @@
           <a ng-click="addNewClient(clientSearchText)">Create a new one!</a>
         </md-not-found>
     </md-autocomplete>
-<br/><br/><br/>
    	 <md-input-container>
         <label>Party Name</label>
       <!--   <md-icon md-svg-src="../../img/icons/ic_person_24px.svg" class="name"></md-icon> -->
@@ -108,9 +117,11 @@
       </md-input-container>
 
       <md-datepicker ng-model="newRow.dispatch_date" md-placeholder="Dispatch date"></md-datepicker>
-      <div>
+      <div class="pull-right">
         <md-button class="md-raised md-primary" ng-click="onAddItemDone()">Save</md-button>
       </div>
     </form>
   </md-content>
+</div>
+
 </div>

@@ -68,3 +68,10 @@ div[contentEditable]:focus {
 .inputdemoIcons md-input-container.md-input-invalid > md-icon.email, .inputdemoIcons md-input-container.md-input-invalid > md-icon.name {
   color: red; }
 
+.layout-content,
+.doc-content {
+  max-width: 864px;
+  margin: 16px;
+  box-sizing: border-box;
+}
+
