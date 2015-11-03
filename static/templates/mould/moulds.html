@@ -1,3 +1,16 @@
+   <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>
+          <span>New-Rework Mould Records</span>
+        </h2>
+        <span flex></span>
+        <button type="button" ng-click="addItem()" class="btn btn-sm btn-success pull-right">
+			<i class="glyphicon glyphicon-plus">
+			</i> Add New item
+		</button>
+      </div>
+    </md-toolbar>
+<br />
 <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
 	<thead>
 	<tr>
@@ -18,16 +31,16 @@
 		<th></th>
 		<th></th>
 		<th>
-			<input st-search="client" placeholder="search client" class="input-sm form-control" type="search"/>
+			<input st-search="client.name" placeholder="search client" class="input-sm form-control" type="search"/>
 		</th>
 		<th>
-			<input st-search="mould" placeholder="search mould" class="input-sm form-control" type="search"/>
+			<input st-search="mould.name" placeholder="search mould" class="input-sm form-control" type="search"/>
 		</th>
 		<th></th>
 		<th></th>
 		<th></th>
 		<th>
-			<input st-search="part" placeholder="search by part name" class="input-sm form-control" type="search"/>
+			<input st-search="part.name" placeholder="search by part name" class="input-sm form-control" type="search"/>
 		</th>
 	</tr>
 	</thead>
@@ -35,12 +48,12 @@
 	<tr ng-repeat="row in displayedCollection">
 		<td>{{row.id}}</td>
 		<td>{{row.job_date | date}}</td>
-		<td><div contentEditable="true" ng-model="row.client">{{row.client}}</div></td>
-		<td>{{row.mould}}</td>
-		<td>{{row.mould_detail}}</td>
+		<td><div contentEditable="true" ng-model="row.client.name">{{row.client.name}}</div></td>
+		<td>{{row.mould.name}}</td>
+		<td>{{row.mould_detail.detail}}</td>
 		<td>{{row.cavity}}</td>
-		<td>{{row.mould_type}}</td>
-		<td>{{row.part}}</td>
+		<td>{{row.mould_type.detail}}</td>
+		<td>{{row.part.name}}</td>
 		<td>{{row.drawing_no}}</td>
 		<td>{{row.challan_no}}</td>
 		<td>{{row.bill_no}}</td>
@@ -90,7 +103,3 @@
 	</tbody>
 </table>
 
-<button type="button" ng-click="addItem()" class="btn btn-sm btn-success pull-right">
-		<i class="glyphicon glyphicon-plus">
-		</i> Add New item
-</button>
