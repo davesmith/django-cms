@@ -9,12 +9,12 @@
     .module('projectx.mould.controllers')
     .controller('NewMouldController', NewMouldController);
 
-  NewMouldController.$inject = ['$state', '$scope', 'Mould'];
+  NewMouldController.$inject = ['$state', '$scope', 'toaster', 'Mould'];
 
   /**
    * @namespace RegisterController
    */
-  function NewMouldController($state, $scope, Mould) {
+  function NewMouldController($state, $scope, toaster, Mould) {
     $scope.selectedClientId;
     $scope.selectedMouldId;
     $scope.selectedMouldTypeId;
@@ -70,7 +70,6 @@
         });
     }
 
-
     function activate(){
       getClients();
       getSelectableFieldsData();
@@ -94,6 +93,8 @@
           $scope.newRow.dispatch_date = new Date($scope.newRow.dispatch_date);
         });
       }
+
+      toaster.pop('info', "New Mould:", "Please fill the details...", 3000);
     }
 
     function getSelectedItem(selectedVal, array){
@@ -144,6 +145,7 @@
       createSaveData();
       if(!$state.params.mouldId){
         Mould.create($scope.dataSave).then(function (data) {
+          toaster.pop('success', "Job Works List", "New Job work added!");
            $state.go('mould');
         });
       }
@@ -155,6 +157,7 @@
      //add to the real data holder
     $scope.onUpdateDone = function onUpdateDone() {
         Mould.updateMould($scope.dataSave).then(function (data) {
+          toaster.pop('success', "Job Works List", "Job work updated!");
            $state.go('mould');
         });
     };

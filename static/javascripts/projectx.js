@@ -10,7 +10,7 @@
       'smart-table',
       'ui.bootstrap',
       'ngMaterial',
-      'ui.router',
+      'toaster'
     ]);
 
   angular

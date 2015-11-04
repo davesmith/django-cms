@@ -9,20 +9,36 @@
     .module('projectx.mould.controllers')
     .controller('MouldController', MouldController);
 
-  MouldController.$inject = ['$state', '$scope', 'Mould'];
+  MouldController.$inject = ['$state', '$scope', 'toaster', 'Mould'];
 
   /**
    * @namespace RegisterController
    */
-  function MouldController($state, $scope, Mould) {
+  function MouldController($state, $scope, toaster, Mould) {
 
     activate();
 
     function activate(){
        Mould.listMoulds().then(function (data) {
+        toaster.pop('success', "Job Works List ", "Job works loaded.");
+
         $scope.rowCollection = data.data;
+        updateUpcomingDispatches();
         //copy the references (you could clone ie angular.copy but then have to go through a dirty checking for the matches)
         $scope.displayedCollection = [].concat($scope.rowCollection);
+        
+      });
+    }
+
+    function updateUpcomingDispatches(){
+      _.each($scope.rowCollection, function(arr){
+          arr.job_date = new Date(arr.job_date);
+          arr.dispatch_date = new Date(arr.dispatch_date);
+
+          var dayDiff = moment(arr.dispatch_date).diff(moment(), 'days');
+          if(dayDiff > 0 && dayDiff <= 3){
+            arr.isUpcoming = true;
+          }
       });
     }
 

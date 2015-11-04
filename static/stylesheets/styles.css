@@ -75,3 +75,10 @@ div[contentEditable]:focus {
   box-sizing: border-box;
 }
 
+.upcoming{
+  background-color: rgba(244, 67, 54, 0.32) !important;
+}
+
+.table tbody > tr > td{
+    vertical-align: middle;
+}

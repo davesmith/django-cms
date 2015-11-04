@@ -64,7 +64,7 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat="row in displayedCollection">
+		<tr ng-repeat="row in displayedCollection" ng-class="{upcoming: row.isUpcoming, highlight: isUpcoming }">
 			<td>{{row.id}}</td>
 			<td>{{row.job_date | date}}</td>
 			<td><div contentEditable="true" ng-model="row.client.name">{{row.client.name}}</div></td>
