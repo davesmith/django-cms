@@ -14,9 +14,12 @@
       <ul class="nav navbar-nav pull-right">
         {% if user.is_authenticated %}
           <li><a href="/">Welcome, {{ user.username }}</a></li>
-          <li><a href="/logout">Logout</a></li>
+          <li><a href="/logout/" target="_self">Logout</a></li>
+          {% if user.is_staff or user.is_superuser %}
+            <li><a href="/admin/" target="_self">Admin</a></li>
+          {% endif %}
         {% else %}
-          <li><a href="/login">Login</a></li>
+          <li><a href="/login/">Login</a></li>
         {% endif %}
       </ul>
     </div> <!-- /.collapse.navbar-collapse -->
