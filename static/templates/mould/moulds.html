@@ -68,7 +68,7 @@
 		<tr ng-repeat="row in displayedCollection" ng-class="{upcoming: row.isUpcoming, highlight: isUpcoming }">
 			<td>{{row.id}}</td>
 			<td>{{row.job_date | date}}</td>
-			<td><div contentEditable="true" ng-model="row.client.name">{{row.client.name}}</div></td>
+			<td>{{row.client.name}}</td>
 			<td>{{row.mould.name}}</td>
 			<td>{{row.mould_detail.detail}}</td>
 			<td>{{row.cavity}}</td>
@@ -125,5 +125,15 @@
 			</td>
 		</tr>
 		</tbody>
+		<tfoot>
+   			<tr>
+    			<td colspan="13" class="text-center">
+			      <div st-pagination="" st-items-by-page="5" st-displayed-pages="7"></div>
+    			</td>
+    			<!-- <select class="form-control" ng-options="size in pageSizes" ng-model="selectedPageSize">
+                		<option value="">Select PageSize</option>
+            	</select> -->
+   			</tr>
+  		</tfoot>
 	</table>
 </div>
