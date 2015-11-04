@@ -26,17 +26,16 @@
         updateUpcomingDispatches();
         //copy the references (you could clone ie angular.copy but then have to go through a dirty checking for the matches)
         $scope.displayedCollection = [].concat($scope.rowCollection);
-        
       });
     }
 
     function updateUpcomingDispatches(){
       _.each($scope.rowCollection, function(arr){
-          arr.job_date = new Date(arr.job_date);
-          arr.dispatch_date = new Date(arr.dispatch_date);
+          //arr.job_date = new Date(arr.job_date);
+          //arr.dispatch_date = new Date(arr.dispatch_date);
 
           var dayDiff = moment(arr.dispatch_date).diff(moment(), 'days');
-          if(dayDiff > 0 && dayDiff <= 3){
+          if(dayDiff >= 0 && dayDiff <= 3){
             arr.isUpcoming = true;
           }
       });

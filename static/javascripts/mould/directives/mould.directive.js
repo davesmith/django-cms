@@ -77,11 +77,11 @@
                       if (!scope.isBeforeOpen && !scope.isAfterOpen) {
 
                           if (scope.before) {
-                              query.before = scope.before;
+                              query.before = scope.before.toString();
                           }
 
                           if (scope.after) {
-                              query.after = scope.after;
+                              query.after = scope.after.toString();
                           }
 
                           scope.$apply(function () {
