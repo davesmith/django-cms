@@ -88,7 +88,10 @@
           $scope.selectedPartId = $scope.newRow.part.id;
           $scope.selectedMouldDetailId = $scope.newRow.mould_detail.id;
 
-          $scope.newRow.cavity = $scope.newRow.cavity.toString();
+          if($scope.newRow.cavity){
+            $scope.newRow.cavity = $scope.newRow.cavity.toString();
+          }
+          
           $scope.newRow.job_date = new Date($scope.newRow.job_date);
           $scope.newRow.dispatch_date = new Date($scope.newRow.dispatch_date);
         });
