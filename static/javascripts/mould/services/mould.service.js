@@ -78,7 +78,7 @@
     }
 
     function updateMould(data) {
-      return $http.post('/api/v1/job-work/' + data.id +'/?format=json', data);
+      return $http.put('/api/v1/job-work/' + data.id +'/?format=json', data);
     }
      function deleteMould(id) {
       return $http.delete('/api/v1/job-work/' + id +'/?format=json');

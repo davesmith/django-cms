@@ -15,7 +15,11 @@
    * @namespace RegisterController
    */
   function NewMouldController($state, $scope, Mould) {
-    $scope.selectedClient = null;
+    $scope.selectedClientId;
+    $scope.selectedMouldId;
+    $scope.selectedMouldTypeId;
+    $scope.selectedPartId;
+    $scope.selectedMouldDetailId;
 
     $scope.newRow = {
       bill_no: "",
@@ -30,6 +34,8 @@
       mould_type: null,
       part: null
     };
+
+    $scope.dataSave = {};
 
     activate();
 
@@ -71,17 +77,74 @@
 
       if($state.params.mouldId){
          Mould.listMould($state.params.mouldId).then(function (data) {
-           $scope.newRow = data.data;
+          $scope.newRow = data.data;
+          $scope.selectedClientItem = { 
+                  name: $scope.newRow.client.name,
+                  value: $scope.newRow.client.name.toLowerCase(),
+                  id: $scope.newRow.client.id
+          };
+          //$scope.selectedClientId =  $scope.newRow.client.id;
+          $scope.selectedMouldId =$scope.newRow.mould.id;
+          $scope.selectedMouldTypeId = $scope.newRow.mould_type.id;
+          $scope.selectedPartId = $scope.newRow.part.id;
+          $scope.selectedMouldDetailId = $scope.newRow.mould_detail.id;
+
+          $scope.newRow.cavity = $scope.newRow.cavity.toString();
+          $scope.newRow.job_date = new Date($scope.newRow.job_date);
+          $scope.newRow.dispatch_date = new Date($scope.newRow.dispatch_date);
         });
       }
     }
 
+    function getSelectedItem(selectedVal, array){
+      return _.find(array, function(arr){
+          return selectedVal == arr.id;
+      });
+    }
+
+    function getSelectedSearchItem(selectedVal, array){
+      return _.find(array, function(arr){
+          return selectedVal.id == arr.id;
+      });
+    }
+
+    Date.prototype.yyyymmdd = function() {
+      var yyyy = this.getFullYear().toString();
+      var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+      var dd  = this.getDate().toString();
+      return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]); // padding
+    };
+
+    function createSaveData(){
+      var selectedClient = getSelectedSearchItem($scope.selectedClientItem, $scope.clients);
+      if(selectedClient){
+        $scope.dataSave.client = selectedClient;
+      }
+      else{
+        $scope.dataSave.client = {name: $scope.clientSearchText};
+      }
+      $scope.dataSave.mould = getSelectedItem($scope.selectedMouldId, $scope.mouldNos);
+      $scope.dataSave.mould_detail = getSelectedItem($scope.selectedMouldDetailId, $scope.mouldDetails);
+      $scope.dataSave.mould_type = getSelectedItem($scope.selectedMouldTypeId, $scope.mouldTypes);
+      $scope.dataSave.part = getSelectedItem($scope.selectedPartId, $scope.parts);
+
+      $scope.dataSave.cavity = parseInt($scope.newRow.cavity);
+      $scope.dataSave.challan_no = parseInt($scope.newRow.challan_no);
+      $scope.dataSave.bill_no = parseInt($scope.newRow.bill_no);
+
+      $scope.dataSave.job_date = $scope.newRow.job_date.yyyymmdd();
+      $scope.dataSave.dispatch_date = $scope.newRow.dispatch_date.yyyymmdd();
+
+      $scope.dataSave.id = $scope.newRow.id;
+      console.log($scope.dataSave);
+    }
+
     //add to the real data holder
     $scope.onAddItemDone = function onAddItemDone() {
+      createSaveData();
       if(!$state.params.mouldId){
-        Mould.create($scope.newRow).then(function (data) {
+        Mould.create($scope.dataSave).then(function (data) {
            $state.go('mould');
-           console.log($scope.newRow);
         });
       }
       else{
@@ -91,7 +154,7 @@
     
      //add to the real data holder
     $scope.onUpdateDone = function onUpdateDone() {
-        Mould.updateMould($scope.newRow).then(function (data) {
+        Mould.updateMould($scope.dataSave).then(function (data) {
            $state.go('mould');
         });
     };

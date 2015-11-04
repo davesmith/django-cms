@@ -32,21 +32,22 @@
           <a ng-click="addNewClient(clientSearchText)">Create a new one!</a>
         </md-not-found>
     </md-autocomplete>
-   	 <md-input-container>
-        <label>Party Name</label>
+    <br/>
+   	<!--  <md-input-container>
+        <label>Party Name</label> -->
       <!--   <md-icon md-svg-src="../../img/icons/ic_person_24px.svg" class="name"></md-icon> -->
-        <md-select ng-model="newRow.client">
-          <md-option ng-repeat="client in clients" value="{{client}}">
+       <!--  <md-select ng-model="selectedClientId">
+          <md-option ng-repeat="client in clients" value="{{client.id}}">
             {{client.name}}
           </md-option>
-        </md-select>
-      </md-input-container>  
+        </md-select> -->
+     <!--  </md-input-container>   -->
     
        <md-input-container flex>
            <label>Party Mould No.</label>
           <!--   <md-icon md-svg-src="../../img/icons/ic_person_24px.svg" class="name"></md-icon> -->
-        <md-select ng-model="newRow.mould">
-          <md-option ng-repeat="no in mouldNos" value="{{no}}">
+        <md-select ng-model="selectedMouldId">
+          <md-option ng-repeat="no in mouldNos" value="{{no.id}}">
             {{no.name}}
           </md-option>
         </md-select>
@@ -55,8 +56,8 @@
       <md-input-container flex>
            <label>Mould Detail</label>
           <!--   <md-icon md-svg-src="../../img/icons/ic_person_24px.svg" class="name"></md-icon> -->
-        <md-select ng-model="newRow.mould_detail">
-          <md-option ng-repeat="detail in mouldDetails" value="{{detail}}">
+        <md-select ng-model="selectedMouldDetailId">
+          <md-option ng-repeat="detail in mouldDetails" value="{{detail.id}}">
             {{detail.detail}}
           </md-option>
         </md-select>
@@ -79,8 +80,8 @@
 
       <md-input-container>
         <label>Mould Type</label>
-        <md-select ng-model="newRow.mould_type">
-          <md-option ng-repeat="mould in mouldTypes" value="{{mould}}">
+        <md-select ng-model="selectedMouldTypeId">
+          <md-option ng-repeat="mould in mouldTypes" value="{{mould.id}}">
             {{mould.detail}}
           </md-option>
         </md-select>
@@ -88,8 +89,8 @@
 
      <md-input-container>
         <label>Part Name</label>
-        <md-select ng-model="newRow.part">
-          <md-option ng-repeat="name in parts" value="{{name}}">
+        <md-select ng-model="selectedPartId">
+          <md-option ng-repeat="name in parts" value="{{name.id}}">
             {{name.name}}
           </md-option>
         </md-select>
