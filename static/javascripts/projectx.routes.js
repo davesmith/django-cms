@@ -27,6 +27,11 @@
         url: '/mould/edit/{mouldId}',
         controller: 'NewMouldController', 
         templateUrl: '/static/templates/mould/new-mould.html'
+      })
+      .state('mouldDemo', {
+        url: '/mouldDemo',
+        controller: 'MouldController',
+        templateUrl: "/static/templates/mould/mouldsDemo.html"
       });
   }
 })();
