@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles groups js %}
 
 <script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
 <script type="text/javascript" src="{% static 'bower_components/bootstrap/dist/js/bootstrap.js' %}"></script>
@@ -45,3 +45,6 @@
 
 <script type="text/javascript" src="{% static 'javascripts/layout/layout.module.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascripts/layout/controllers/index.controller.js' %}"></script>
+<script>
+    window.user = {groups: {{user.groups.all | groups}}, isSuperUser: {{ user.is_superuser | js }} };
+</script>
