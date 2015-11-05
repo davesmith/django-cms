@@ -105,35 +105,48 @@
       if($state.params.mouldId){
          Mould.listMould($state.params.mouldId).then(function (data) {
           $scope.newRow = data.data;
-          $scope.selectedClientItem = { 
+
+          if($scope.newRow.client){
+            $scope.selectedClientItem = { 
                   name: $scope.newRow.client.name,
                   value: $scope.newRow.client.name.toLowerCase(),
                   id: $scope.newRow.client.id
-          };
-          //$scope.selectedClientId =  $scope.newRow.client.id;
-          $scope.selectedMouldNo = { 
+            };
+          }
+
+          if($scope.newRow.mould){
+            $scope.selectedMouldNo = { 
                   name: $scope.newRow.mould.name,
                   value: $scope.newRow.mould.name.toLowerCase(),
                   id: $scope.newRow.mould.id
-          };
+            };
+          }
          
-          $scope.selectedMouldType = { 
+          if($scope.newRow.mould_type){
+            $scope.selectedMouldType = { 
                   detail: $scope.newRow.mould_type.detail,
                   value: $scope.newRow.mould_type.detail.toLowerCase(),
                   id: $scope.newRow.mould_type.id
-          };
+            };
+          }
 
-          $scope.selectedMouldDetail = { 
+
+          if($scope.newRow.mould_detail)
+          {
+            $scope.selectedMouldDetail = { 
                   detail: $scope.newRow.mould_detail.detail,
                   value: $scope.newRow.mould_detail.detail.toLowerCase(),
                   id: $scope.newRow.mould_detail.id
-          };
+            };
+          }
 
-          $scope.selectedPart = { 
+          if($scope.newRow.part){
+            $scope.selectedPart = { 
                   name: $scope.newRow.part.name,
                   value: $scope.newRow.part.name.toLowerCase(),
                   id: $scope.newRow.part.id
-          };
+            };
+          }
        
           if($scope.newRow.cavity){
             $scope.newRow.cavity = $scope.newRow.cavity.toString();
