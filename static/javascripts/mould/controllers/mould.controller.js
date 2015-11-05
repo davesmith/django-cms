@@ -16,6 +16,12 @@
    */
   function MouldController($state, $scope, toaster, Mould) {
 
+    function isMemberOfGroup(groupName, groups){
+      return (groups.indexOf(groupName) != -1);
+    }
+
+    $scope.hasEditRights = window.user.isSuperUser || isMemberOfGroup("Designer", window.user.groups);
+
     activate();
 
     function activate(){
