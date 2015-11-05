@@ -4,7 +4,7 @@
 {% block title %}{% render_with_template_if_exist "admin/admin_title.html" title %} {{ site_title|default:_('Paavan Industries') }}{% endblock %}
 
 {% block branding %}
-<a class="navbar-brand" href="{% url 'admin:index' %}">{% if site_header %}{{ site_header }}{% else %}{% render_with_template_if_exist "admin/admin_title.html" _('Paavan Industries') %}{% endif %}</a>
+<a class="navbar-brand" href="{% url 'admin:index' %}">{% if site_header %}{{ 'Paavan Industries' }}{% else %}{% render_with_template_if_exist "admin/admin_title.html" _('Paavan Industries') %}{% endif %}</a>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
