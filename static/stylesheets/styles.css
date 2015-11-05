@@ -82,3 +82,7 @@ div[contentEditable]:focus {
 .table tbody > tr > td{
     vertical-align: middle;
 }
+
+.checkbox input[type=checkbox]{
+  opacity:1;
+}
