@@ -55,18 +55,46 @@
     function getSelectableFieldsData () {
         Mould.listMouldTypes().then(function (data) {
            $scope.mouldTypes = data.data;
+           $scope.mouldTypes = $scope.mouldTypes.map( function (type) {
+                return {
+                  detail: type.detail,
+                  value: type.detail.toLowerCase(),
+                  id: type.id
+                };
+           });
         });
 
         Mould.listMouldNo().then(function (data) {
            $scope.mouldNos = data.data;
+           $scope.mouldNos = $scope.mouldNos.map( function (mouldNo) {
+                return {
+                  name: mouldNo.name,
+                  value: mouldNo.name.toLowerCase(),
+                  id: mouldNo.id
+                };
+            });
         });
 
         Mould.listMouldDetails().then(function (data) {
            $scope.mouldDetails = data.data;
+           $scope.mouldDetails = $scope.mouldDetails.map( function (mouldDetail) {
+                return {
+                  detail: mouldDetail.detail,
+                  value: mouldDetail.detail.toLowerCase(),
+                  id: mouldDetail.id
+                };
+           });
         });
 
         Mould.listParts().then(function (data) {
            $scope.parts = data.data;
+             $scope.parts = $scope.parts.map( function (part) {
+                return {
+                  name: part.name,
+                  value: part.name.toLowerCase(),
+                  id: part.id
+                };
+            });
         });
     }
 
@@ -77,21 +105,53 @@
       if($state.params.mouldId){
          Mould.listMould($state.params.mouldId).then(function (data) {
           $scope.newRow = data.data;
-          $scope.selectedClientItem = { 
+
+          if($scope.newRow.client){
+            $scope.selectedClientItem = { 
                   name: $scope.newRow.client.name,
                   value: $scope.newRow.client.name.toLowerCase(),
                   id: $scope.newRow.client.id
-          };
-          //$scope.selectedClientId =  $scope.newRow.client.id;
-          $scope.selectedMouldId =$scope.newRow.mould.id;
-          $scope.selectedMouldTypeId = $scope.newRow.mould_type.id;
-          $scope.selectedPartId = $scope.newRow.part.id;
-          $scope.selectedMouldDetailId = $scope.newRow.mould_detail.id;
+            };
+          }
 
+          if($scope.newRow.mould){
+            $scope.selectedMouldNo = { 
+                  name: $scope.newRow.mould.name,
+                  value: $scope.newRow.mould.name.toLowerCase(),
+                  id: $scope.newRow.mould.id
+            };
+          }
+         
+          if($scope.newRow.mould_type){
+            $scope.selectedMouldType = { 
+                  detail: $scope.newRow.mould_type.detail,
+                  value: $scope.newRow.mould_type.detail.toLowerCase(),
+                  id: $scope.newRow.mould_type.id
+            };
+          }
+
+
+          if($scope.newRow.mould_detail)
+          {
+            $scope.selectedMouldDetail = { 
+                  detail: $scope.newRow.mould_detail.detail,
+                  value: $scope.newRow.mould_detail.detail.toLowerCase(),
+                  id: $scope.newRow.mould_detail.id
+            };
+          }
+
+          if($scope.newRow.part){
+            $scope.selectedPart = { 
+                  name: $scope.newRow.part.name,
+                  value: $scope.newRow.part.name.toLowerCase(),
+                  id: $scope.newRow.part.id
+            };
+          }
+       
           if($scope.newRow.cavity){
             $scope.newRow.cavity = $scope.newRow.cavity.toString();
           }
-          
+
           $scope.newRow.job_date = new Date($scope.newRow.job_date);
           $scope.newRow.dispatch_date = new Date($scope.newRow.dispatch_date);
         });
@@ -119,19 +179,27 @@
       return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]); // padding
     };
 
-    function createSaveData(){
-      var selectedClient = getSelectedSearchItem($scope.selectedClientItem, $scope.clients);
-      if(selectedClient){
-        $scope.dataSave.client = selectedClient;
+    function getSelectedValueItem(selectedVal, arrayCollection, nameType, searchText){
+       if(selectedVal){
+        var filteredVal = getSelectedSearchItem(selectedVal, arrayCollection);
+        if(filteredVal){
+          return filteredVal;
+        }
       }
       else{
-        $scope.dataSave.client = {name: $scope.clientSearchText};
+        var newVal = {};
+        newVal[nameType] = searchText;
+        return newVal;
       }
-      $scope.dataSave.mould = getSelectedItem($scope.selectedMouldId, $scope.mouldNos);
-      $scope.dataSave.mould_detail = getSelectedItem($scope.selectedMouldDetailId, $scope.mouldDetails);
-      $scope.dataSave.mould_type = getSelectedItem($scope.selectedMouldTypeId, $scope.mouldTypes);
-      $scope.dataSave.part = getSelectedItem($scope.selectedPartId, $scope.parts);
+    }
 
+    function createSaveData(){
+      $scope.dataSave.client = getSelectedValueItem($scope.selectedClientItem, $scope.clients, "name", $scope.clientSearchText);
+      $scope.dataSave.mould = getSelectedValueItem($scope.selectedMouldNo, $scope.mouldNos, "name", $scope.mouldSearchText);
+      $scope.dataSave.mould_detail = getSelectedValueItem($scope.selectedMouldDetail, $scope.mouldDetails, "detail", $scope.mouldDetailSearchText);
+      $scope.dataSave.mould_type = getSelectedValueItem($scope.selectedMouldType, $scope.mouldTypes, "detail", $scope.mouldTypeSearchText);
+      $scope.dataSave.part = getSelectedValueItem($scope.selectedPart, $scope.parts, "name", $scope.partSearchText);
+     
       $scope.dataSave.cavity = parseInt($scope.newRow.cavity);
       $scope.dataSave.challan_no = parseInt($scope.newRow.challan_no);
       $scope.dataSave.bill_no = parseInt($scope.newRow.bill_no);
@@ -166,15 +234,35 @@
     };
 
     //Code for client auto-complete
-    $scope.selectedClientItem;
     $scope.clientQuerySearch = clientQuerySearch;
-    $scope.clientSearchText;
-    $scope.selectedClientItemChange = selectedClientItemChange;
-    $scope.clientSearchTextChange   = clientSearchTextChange;
     $scope.addNewClient = addNewClient;
 
     function clientQuerySearch (query) {
       var results = query ? $scope.clients.filter( createFilterFor(query) ) : $scope.clients;
+      return results;
+    }
+
+    $scope.mouldQuerySearch = mouldQuerySearch;
+    function mouldQuerySearch (query) {
+      var results = query ? $scope.mouldNos.filter( createFilterFor(query) ) : $scope.mouldNos;
+      return results;
+    }
+
+    $scope.mouldDetailQuerySearch = mouldDetailQuerySearch;
+    function mouldDetailQuerySearch (query) {
+      var results = query ? $scope.mouldDetails.filter( createFilterFor(query) ) : $scope.mouldDetails;
+      return results;
+    }
+
+    $scope.mouldTypeQuerySearch = mouldTypeQuerySearch;
+    function mouldTypeQuerySearch (query) {
+      var results = query ? $scope.mouldTypes.filter( createFilterFor(query) ) : $scope.mouldTypes;
+      return results;
+    }
+
+    $scope.partQuerySearch = partQuerySearch;
+    function partQuerySearch (query) {
+      var results = query ? $scope.parts.filter( createFilterFor(query) ) : $scope.parts;
       return results;
     }
 
@@ -184,16 +272,9 @@
 
    function createFilterFor(query) {
       var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(client) {
-        return (client.value.indexOf(lowercaseQuery) === 0);
+      return function filterFn(item) {
+        return (item.value.indexOf(lowercaseQuery) === 0);
       };
-    }
-
-    function clientSearchTextChange(text) {
-      console.log('Text changed to ' + text);
-    }
-    function selectedClientItemChange(item) {
-      console.log('Item changed to ' + JSON.stringify(item));
     }
   }
 })();

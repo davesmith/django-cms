@@ -8,15 +8,14 @@
 	   <!--  <md-button ng-click="addItem()" class="md-raised md-primary">	<i class="glyphicon glyphicon-plus">
 			</i> Add New item
 			</md-button> -->
-	    <button type="button" ng-show="hasEditRights" ng-click="addItem()" class="btn btn-sm btn-success pull-right">
+	    <button type="button" ng-click="addItem()" class="btn btn-sm btn-success pull-right">
 			<i class="glyphicon glyphicon-plus">
 			</i> Add New item
 		</button>
 	  </div>
 	</md-toolbar>
 	<br />
-	<!-- <table st-set-filter="customFilter" st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped"> -->
-	<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+	<table st-set-filter="customFilter" st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
 		<thead>
 		<tr>
 			<th st-sort="id">Sr. No</th>
@@ -31,7 +30,7 @@
 			<th>Challan No</th>
 			<th>Bill No</th>
 			<th>Dispatch Date</th>
-			<th ng-show="hasEditRights">Actions</th>
+			<th>Actions</th>
 		</tr>
 		<tr>
 			<th></th>
@@ -59,9 +58,9 @@
 			<th></th>
 			<th></th>
 			<th></th>
-			<!-- <th>
+			<th>
 				<st-date-range predicate="dispatch_date" before="query.before" after="query.after"></st-date-range>
-			</th> -->
+			</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -78,7 +77,7 @@
 			<td>{{row.challan_no}}</td>
 			<td>{{row.bill_no}}</td>
 			<td>{{row.dispatch_date | date}}</td>
-			<td ng-show="hasEditRights" >
+			<td>
 				<button type="button" ng-click="updateItem(row)" class="btn btn-sm btn-info">
 					<i class="glyphicon glyphicon-pencil">
 					</i>
