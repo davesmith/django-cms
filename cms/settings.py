@@ -128,5 +128,6 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
         'rest_framework.renderers.JSONRenderer',
     ),
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.SearchFilter',)
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.SearchFilter',),
+    'DATE_INPUT_FORMATS': ['iso-8601', '%d.%m.%Y', '%m.%d.%Y']
 }

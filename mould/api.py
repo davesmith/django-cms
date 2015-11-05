@@ -33,11 +33,11 @@ class PartSerializer(serializers.ModelSerializer):
 
 class JobWorkSerializer(serializers.ModelSerializer):
 
-    client = ClientSerializer(allow_null=True)
-    mould = MouldSerializer(allow_null=True)
-    mould_detail = MouldDetailSerializer(allow_null=True)
-    mould_type = MouldTypeSerializer(allow_null=True)
-    part = PartSerializer(allow_null=True)
+    client = ClientSerializer(allow_null=True, required=False)
+    mould = MouldSerializer(allow_null=True, required=False)
+    mould_detail = MouldDetailSerializer(allow_null=True, required=False)
+    mould_type = MouldTypeSerializer(allow_null=True, required=False)
+    part = PartSerializer(allow_null=True, required=False)
 
     def validate_client(self, value):
         return (Client.objects.get_or_create(name=value.get("name")))[0] if value else value
