@@ -20,7 +20,9 @@
       var fields = field.split('.');
         var o = {}, i, l = arr.length, r = [];
         for(i=0; i<l;i+=1) {
-            o[arr[i][fields[0]][fields[1]]] = arr[i];
+            if(arr[i][fields[0]]){
+                o[arr[i][fields[0]][fields[1]]] = arr[i];
+            }
         }
         for(i in o) {
             r.push(o[i]);
